@@ -1,17 +1,16 @@
 package com.example.shopping.categories;
 import com.example.shopping.util.PageUtil;
 import com.example.shopping.util.RestPreconditions;
-import org.springframework.data.domain.Page;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.google.common.base.Preconditions;
 import org.springframework.web.multipart.MultipartFile;
-
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 @RestController
 @RequestMapping("/api/categories")
 public class CategoriesController{
@@ -23,57 +22,53 @@ private final CategoriesRepository repository;
         this.repository=repository;
     }
 
+
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public List<Categories> findAll(@RequestParam("page") Optional<Integer> page,
+    public ResponseEntity<List<CategoriesDTO>> findAll(@RequestParam("page") Optional<Integer> page,
                                  @RequestParam("size") Optional<Integer> size) {
-        Page<Categories> resultPage = service.findAll(PageUtil.defaultPage(page,size));
-        /*if (page.orElse(PageUtil.DEFAULT_CURRENT_PAGE_NO) > resultPage.getTotalPages()) {
-            throw new ResourceNotFoundException();
-        }*/
-        return resultPage.getContent();
+        return new ResponseEntity<List<CategoriesDTO>>(service.findAll(PageUtil.defaultPage(page,size)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public Categories findById(@PathVariable("id") String id) {
-        return RestPreconditions.checkFound(service.findById(id));
+    public CategoriesDTO findById(@PathVariable("id") String id) {
+        return RestPreconditions.checkFound(service.findByCategoryId(id));
+    }
+
+    @RequestMapping(value = "/create",method = RequestMethod.POST, consumes = { "multipart/form-data" })
+    public ResponseEntity<CategoriesDTO> create(@RequestPart CategoriesDTO resource,@RequestPart("imageFile") MultipartFile file) throws IOException {
+        Preconditions.checkNotNull(resource,file.getBytes());
+
+        CategoriesDTO cat=new CategoriesDTO();
+        try {
+            cat=service.create(resource,file.getBytes());
+        }catch (Exception e){
+            String message = String.format("Category Already Exist " + resource.getCategoryName());
+            log.error(message);
+            return new ResponseEntity<CategoriesDTO>(HttpStatus.CONFLICT);
+
+        }
+        return new ResponseEntity<CategoriesDTO>(cat,HttpStatus.CREATED);
     }
 
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public String create(@RequestBody Categories resource) {
-//        Preconditions.checkNotNull(resource);
-//        return service.create(resource);
-//    }
-private byte[] bytes;
-   private byte[] abc;
-
-    @PostMapping("/upload")
-public void uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
-     this.bytes = file.getBytes();
-
-}
-
-    @PostMapping("/add")
-    public void createBook(@RequestBody Categories categories) throws IOException {
-        categories.setPicByte(this.bytes);
-        repository.save(categories);
-    }
-
-
-
-    @PutMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT, consumes = { "multipart/form-data" })
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable( "id" ) String id, @RequestBody Categories resource) {
-        Preconditions.checkNotNull(resource);
-        RestPreconditions.checkNotNull(service.findById(resource.getId()));
-        service.update(resource);
+    public ResponseEntity<String> updateCategory(@PathVariable( "id" ) String id,@RequestPart CategoriesDTO resource,@RequestPart ("imageFile") MultipartFile file ) throws Exception {
+        resource.setData(file.getBytes());
+        System.out.println(resource.getId()+" "+resource.getCategoryName());
+        return new ResponseEntity<String>(service.updateCategory(resource),HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/id/{id}",method = RequestMethod.PUT, consumes = { "multipart/form-data" })
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> update(@PathVariable( "id" ) String id,@RequestPart ("imageFile") MultipartFile file ) throws Exception {
+        return new ResponseEntity<String>(service.updateCategoryImage(id,file.getBytes()),HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable("id") String id) {
-        service.deleteById(id);
+    public ResponseEntity<String>  delete(@PathVariable("id") String id) {
+        return new ResponseEntity<String>(service.deleteById(id),HttpStatus.OK);
     }
 }

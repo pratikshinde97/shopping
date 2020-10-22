@@ -1,7 +1,7 @@
 package com.example.shopping.categories;
 
 import com.example.shopping.common.BasicOperation;
-import com.example.shopping.images.Images;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -15,9 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @Accessors(chain = true)
 public class CategoriesDTO implements BasicOperation<Categories, CategoriesDTO> {
-private  String categoryName;
-    private List<String> categoriesImages;
-    private List<Images> images;
+    private  String categoryName;
+    private  byte[] data;
     private String id;
 
     @JsonIgnore
