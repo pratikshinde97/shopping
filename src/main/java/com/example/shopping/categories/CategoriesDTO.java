@@ -16,6 +16,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class CategoriesDTO implements BasicOperation<Categories, CategoriesDTO> {
     private  String categoryName;
+
     private  byte[] data;
     private String id;
 
