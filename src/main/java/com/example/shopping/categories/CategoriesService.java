@@ -43,8 +43,7 @@ return  categoriesDTOList;
 //        return repository.save(resource);
 //    }
 
-    public CategoriesDTO  create(CategoriesDTO categoriesDTO,byte[] data) {
-        categoriesDTO.setData(data);
+    public CategoriesDTO  create(CategoriesDTO categoriesDTO) {
         return new CategoriesDTO(repository.save(categoriesDTO.getEntity(null)));
     }
 

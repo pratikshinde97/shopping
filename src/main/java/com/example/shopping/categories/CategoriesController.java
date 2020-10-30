@@ -7,7 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.google.common.base.Preconditions;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
+
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 @Slf4j
@@ -34,23 +35,30 @@ private final CategoriesRepository repository;
     public CategoriesDTO findById(@PathVariable("id") String id) {
         return RestPreconditions.checkFound(service.findByCategoryId(id));
     }
+byte[] abc;
+
+    @RequestMapping(value = "/upload",method = RequestMethod.POST)
+    public void upload(@Valid @RequestPart("imageFile") MultipartFile file) throws Exception {
+        Preconditions.checkNotNull(file.getBytes());
+        abc=file.getBytes();
+
+    }
+
 
     @RequestMapping(value = "/create",method = RequestMethod.POST, consumes = { "multipart/form-data" })
-    public ResponseEntity<CategoriesDTO> create(@RequestPart CategoriesDTO resource,@RequestPart("imageFile") MultipartFile file) throws IOException {
-        Preconditions.checkNotNull(resource,file.getBytes());
+    public ResponseEntity<CategoriesDTO> create(@Valid @RequestPart CategoriesDTO resource) throws Exception {
 
         CategoriesDTO cat=new CategoriesDTO();
         try {
-            cat=service.create(resource,file.getBytes());
+            resource.setData(abc);
+            cat=service.create(resource);
         }catch (Exception e){
             String message = String.format("Category Already Exist " + resource.getCategoryName());
             log.error(message);
             return new ResponseEntity<CategoriesDTO>(HttpStatus.CONFLICT);
-
         }
         return new ResponseEntity<CategoriesDTO>(cat,HttpStatus.CREATED);
     }
-
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT, consumes = { "multipart/form-data" })
     @ResponseStatus(HttpStatus.OK)
@@ -62,7 +70,7 @@ private final CategoriesRepository repository;
 
     @RequestMapping(value = "/id/{id}",method = RequestMethod.PUT, consumes = { "multipart/form-data" })
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> update(@PathVariable( "id" ) String id,@RequestPart ("imageFile") MultipartFile file ) throws Exception {
+    public ResponseEntity<String> update(@PathVariable String id,@RequestPart ("imageFile") MultipartFile file ) throws Exception {
         return new ResponseEntity<String>(service.updateCategoryImage(id,file.getBytes()),HttpStatus.OK);
     }
 
