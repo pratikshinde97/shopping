@@ -47,15 +47,18 @@ return  categoriesDTOList;
         return new CategoriesDTO(repository.save(categoriesDTO.getEntity(null)));
     }
 
-    public String updateCategory(CategoriesDTO resource) throws Exception {
+    public String updateCategory(String id,CategoriesDTO resource) throws Exception {
         if (null == resource || resource.getId().isEmpty()) {
             throw new Exception("Category id is blank! it is required");
         }
-        repository.findById(resource.getId()).ifPresent((categories) -> {
-            categories = repository.save(categories);
-            categories = resource.getEntity(categories);
-            repository.save(categories);
-        });
+        Categories categories=new Categories();
+        categories=repository.findById(id).get();
+        categories.setData(categories.getData());
+        categories.setCategoryName(resource.getCategoryName()==null||resource.getCategoryName().isEmpty()?categories.getCategoryName():resource.getCategoryName());
+        categories.setId(categories.getId());
+        resource.getEntity(null);
+        repository.save(categories);
+
         return "Category updated successfully!";
     }
     public String updateCategoryImage(String id,byte[] file) throws Exception {

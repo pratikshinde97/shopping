@@ -45,8 +45,8 @@ byte[] abc;
     }
 
 
-    @RequestMapping(value = "/create",method = RequestMethod.POST, consumes = { "multipart/form-data" })
-    public ResponseEntity<CategoriesDTO> create(@Valid @RequestPart CategoriesDTO resource) throws Exception {
+    @RequestMapping(value = "/create",method = RequestMethod.POST,produces = "application/json")
+    public ResponseEntity<CategoriesDTO> create(@Valid @RequestBody  CategoriesDTO resource) throws Exception {
 
         CategoriesDTO cat=new CategoriesDTO();
         try {
@@ -60,12 +60,11 @@ byte[] abc;
         return new ResponseEntity<CategoriesDTO>(cat,HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.PUT, consumes = { "multipart/form-data" })
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> updateCategory(@PathVariable( "id" ) String id,@RequestPart CategoriesDTO resource,@RequestPart ("imageFile") MultipartFile file ) throws Exception {
-        resource.setData(file.getBytes());
+    public ResponseEntity<String> updateCategory(@PathVariable( "id" ) String id,@RequestBody CategoriesDTO resource) throws Exception {
         System.out.println(resource.getId()+" "+resource.getCategoryName());
-        return new ResponseEntity<String>(service.updateCategory(resource),HttpStatus.OK);
+        return new ResponseEntity<String>(service.updateCategory(id,resource),HttpStatus.OK);
     }
 
     @RequestMapping(value = "/id/{id}",method = RequestMethod.PUT, consumes = { "multipart/form-data" })
