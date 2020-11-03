@@ -59,7 +59,7 @@ byte[] abc;
         }
         return new ResponseEntity<CategoriesDTO>(cat,HttpStatus.CREATED);
     }
-
+//sf
 
 //    @RequestMapping(value = "/create",method = RequestMethod.POST,produces = "application/json")
 //    public ResponseEntity<CategoriesDTO> create(@Valid @RequestBody  CategoriesDTO resource) throws Exception {

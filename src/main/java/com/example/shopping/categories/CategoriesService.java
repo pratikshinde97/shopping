@@ -35,7 +35,7 @@ return  categoriesDTOList;
         repository.findById(id).ifPresent(categories -> {categoriesDTO.getDTO(categories);});
         return  categoriesDTO;
     }
-//
+//a
 //    public String create(Categories resource,byte[] abc) {
 //        // Response image = imagesUploadController.uploadFile(file);
 //        // resource.setImageId(image.getId());
