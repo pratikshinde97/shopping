@@ -32,23 +32,16 @@ public class UserController {
         return new ResponseEntity<UserDTO>(res, HttpStatus.CREATED);
     }
     @RequestMapping(method = RequestMethod.GET, value="/{email}/{password}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable(name = "email" , required = true) String email,
+    public String getUser(@PathVariable(name = "email" , required = true) String email,
                                            @PathVariable(name = "password" , required = true) String password) {
 
         var res = new UserDTO();
         try {
-            System.out.println("controler    calll");
-
            res= userManageService.getUserByEmailAndPassword(email, password);
-            System.out.println("email"+email+"password"+password);
         } catch (Exception e) {
-            log.error("A user not found with email" + email);
-            return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+            return  "Please Check Email And Password ";
         }
-
-
-        return new ResponseEntity<UserDTO>(res, HttpStatus.OK);
-
+        return  "Login Successful!!!";
     }
 
 
@@ -68,6 +61,21 @@ public class UserController {
         userManageService.update(id,resource);
     }
 
+//    @PutMapping(value = "/{id}/{email}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public void updateEmail(@PathVariable( "id" ) String id, @PathVariable( "email" )  String email) {
+//        Preconditions.checkNotNull(id,email);
+//        RestPreconditions.checkNotNull(userManageService.findById(id));
+//        userManageService.updateEmail(id,email);
+//    }
+
+//    @PutMapping(value = "/{email}/{password}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public void updatePassword(@PathVariable( "email" ) String email,@PathVariable( "password" ) String password) {
+//        Preconditions.checkNotNull(email,password);
+//        RestPreconditions.checkNotNull(userManageService.updateEmail(email,password));
+//        userManageService.updateEmail(email,password);
+//    }
 
 
 //    @DeleteMapping(value = "/{id}")

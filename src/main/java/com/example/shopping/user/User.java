@@ -1,10 +1,8 @@
 package com.example.shopping.user;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import com.example.shopping.cart.Cart;
 import com.example.shopping.common.BaseEntity;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
@@ -12,6 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "USERS")

@@ -20,6 +20,12 @@ public class UserService{
         user.setEmail(userDTO.getEmail());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
+        user.setPincode(userDTO.getPincode());
+        user.setMobileNumber(userDTO.getMobileNumber());
+        user.setAddressLine1(userDTO.getAddressLine1());
+        user.setAddressLine2(userDTO.getAddressLine2());
+        user.setArea(userDTO.getArea());
+        user.setCity(userDTO.getCity());
         user.setPassword(userDTO.getPassword());
         userRepository.save(user);
         return userDTO;
@@ -59,20 +65,39 @@ public class UserService{
 
     public void update(String id,User resource) {
         User user=new User();
-        User present=userRepository.findById(resource.getId()).orElse(null);
+         user=userRepository.findById(id).get();
+
         resource.setId(id);
-        user.setFirstName(resource.getFirstName());
-        user.setLastName(resource.getLastName());
-        user.setEmail(resource.getEmail());
-        user.setPassword(resource.getPassword());
-        user.setAddressLine1(resource.getAddressLine1());
-        user.setAddressLine2(resource.getAddressLine2());
-        user.setArea(resource.getArea());
-        user.setCity(resource.getCity());
-        user.setLandmark(resource.getLandmark());
-        user.setPincode(resource.getPincode());
-        userRepository.save(resource);
+
+        user.setFirstName(resource.getFirstName()==null||resource.getFirstName().isEmpty()?user.getFirstName():resource.getFirstName());
+        user.setLastName(resource.getLastName()==null||resource.getLastName().isEmpty()?user.getLastName():resource.getLastName());
+        user.setEmail(resource.getEmail()==null||resource.getEmail().isEmpty()?user.getEmail():resource.getEmail());
+        user.setPassword(resource.getPassword()==null||resource.getPassword().isEmpty()?user.getPassword():resource.getPassword());
+        user.setAddressLine1(resource.getAddressLine1()==null||resource.getAddressLine1().isEmpty()?user.getAddressLine1():resource.getAddressLine1());
+        user.setAddressLine2(resource.getAddressLine2()==null||resource.getAddressLine2().isEmpty()?user.getAddressLine2():resource.getAddressLine2());
+        user.setArea(resource.getArea()==null||resource.getArea().isEmpty()?user.getArea():resource.getArea());
+        user.setCity(resource.getCity()==null||resource.getCity().isEmpty()?user.getCity():resource.getCity());
+        user.setLandmark(resource.getLandmark()==null||resource.getLandmark().isEmpty()?user.getLandmark():resource.getLandmark());
+        user.setPincode(resource.getPincode()==null||resource.getPincode().isEmpty()?user.getPincode():resource.getPincode());
+
+        userRepository.save(user);
     }
+
+    public String updateEmail(String id,String email) {
+        User user=new User();
+         user=userRepository.findById(id).get();
+         user.setEmail(email);
+        userRepository.save(user);
+        return  "Email Updated";
+    }
+    public String updatePassword(String email,String password) {
+        User user=new User();
+        user=userRepository.findByEmail(email).get();
+        user.setPassword(password);
+        userRepository.save(user);
+        return  "Password Updated";
+    }
+
 
 
 

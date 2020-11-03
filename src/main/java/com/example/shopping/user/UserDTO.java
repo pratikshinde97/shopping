@@ -1,6 +1,5 @@
 package com.example.shopping.user;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import com.example.shopping.util.StringUtil;

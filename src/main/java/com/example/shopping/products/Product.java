@@ -1,5 +1,6 @@
 package com.example.shopping.products;
 
+import com.example.shopping.cart.Cart;
 import com.example.shopping.cart.CartItem;
 import com.example.shopping.categories.Categories;
 import com.example.shopping.common.BaseEntity;
@@ -12,7 +13,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -51,7 +54,6 @@ public class Product extends BaseEntity {
 //    @JsonIgnore
 //    private List<CartItem> cartItemList;
 
-
     @Column(name="PRODUCT_NAME")
     private  String productName;
 
@@ -73,4 +75,9 @@ public class Product extends BaseEntity {
     @Column(name="CATEGORY_ID")
     private  String categoryId;
 
- }
+
+//    @OneToMany(mappedBy = "product", cascade =CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JsonIgnore
+//    private List<CartItem> cartItemList;
+
+}
