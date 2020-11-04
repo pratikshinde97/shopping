@@ -36,12 +36,16 @@ private final CategoriesRepository repository;
         return RestPreconditions.checkFound(service.findByCategoryId(id));
     }
 
-    byte[] abc;
-    @RequestMapping(value = "/upload",method = RequestMethod.POST)
-    public void upload(@Valid @RequestPart("imageFile") MultipartFile file) throws Exception {
+    CategoriesDTO categoriesDTO=new CategoriesDTO();
 
+    byte[] abc=new byte[0];
+    @RequestMapping(value = "/upload",method = RequestMethod.POST)
+    public ResponseEntity<CategoriesDTO>  upload(@Valid @RequestPart("imageFile") MultipartFile file) throws Exception {
         Preconditions.checkNotNull(file.getBytes());
         abc=file.getBytes();
+        categoriesDTO.setData(abc);
+        service.create(categoriesDTO);
+        return new ResponseEntity<CategoriesDTO>(categoriesDTO,HttpStatus.CREATED);
 
     }
 
@@ -63,18 +67,20 @@ private final CategoriesRepository repository;
 
 
     @RequestMapping(value = "/create",method = RequestMethod.POST,produces = "application/json")
-    public ResponseEntity<CategoriesDTO> create(@Valid @RequestBody  CategoriesDTO resource) throws Exception {
+    public void create(@Valid @RequestBody  CategoriesDTO resource) throws Exception {
 
         CategoriesDTO cat=new CategoriesDTO();
         try {
-            resource.setData(abc);
-            cat=service.create(resource);
+          //  resource.setData(abc);
+            categoriesDTO=resource;
+
+
         }catch (Exception e){
             String message = String.format("Category Already Exist " + resource.getCategoryName());
             log.error(message);
-            return new ResponseEntity<CategoriesDTO>(HttpStatus.CONFLICT);
+//            return new ResponseEntity<CategoriesDTO>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<CategoriesDTO>(cat,HttpStatus.CREATED);
+//        return new ResponseEntity<CategoriesDTO>(cat,HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
