@@ -4,6 +4,7 @@ import com.example.shopping.util.RestPreconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import com.google.common.base.Preconditions;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,17 +36,14 @@ private final CategoriesRepository repository;
     public CategoriesDTO findById(@PathVariable("id") String id) {
         return RestPreconditions.checkFound(service.findByCategoryId(id));
     }
+byte[] abc;
 
-    CategoriesDTO categoriesDTO=new CategoriesDTO();
-
-    byte[] abc=new byte[0];
+    @Async
     @RequestMapping(value = "/upload",method = RequestMethod.POST)
-    public ResponseEntity<CategoriesDTO>  upload(@Valid @RequestPart("imageFile") MultipartFile file) throws Exception {
+    public void upload(@Valid @RequestPart("imageFile") MultipartFile file) throws Exception {
         Preconditions.checkNotNull(file.getBytes());
+        Thread.sleep(1000L);
         abc=file.getBytes();
-        categoriesDTO.setData(abc);
-        service.create(categoriesDTO);
-        return new ResponseEntity<CategoriesDTO>(categoriesDTO,HttpStatus.CREATED);
 
     }
 
@@ -65,22 +63,21 @@ private final CategoriesRepository repository;
 //        return new ResponseEntity<CategoriesDTO>(cat,HttpStatus.CREATED);
 //    }
 
+//sf
 
     @RequestMapping(value = "/create",method = RequestMethod.POST,produces = "application/json")
-    public void create(@Valid @RequestBody  CategoriesDTO resource) throws Exception {
+    public ResponseEntity<CategoriesDTO> create(@Valid @RequestBody  CategoriesDTO resource) throws Exception {
 
         CategoriesDTO cat=new CategoriesDTO();
         try {
-          //  resource.setData(abc);
-            categoriesDTO=resource;
-
-
+            resource.setData(abc);
+            cat=service.create(resource);
         }catch (Exception e){
             String message = String.format("Category Already Exist " + resource.getCategoryName());
             log.error(message);
-//            return new ResponseEntity<CategoriesDTO>(HttpStatus.CONFLICT);
+            return new ResponseEntity<CategoriesDTO>(HttpStatus.CONFLICT);
         }
-//        return new ResponseEntity<CategoriesDTO>(cat,HttpStatus.CREATED);
+        return new ResponseEntity<CategoriesDTO>(cat,HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
