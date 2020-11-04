@@ -24,6 +24,7 @@ public class Categories extends BaseEntity {
     @Column(name = "CATEGORY_NAME")
     private String categoryName;
 
+    @NotNull
     @Lob
     @Column(name = "photo", columnDefinition="LONGBLOB")
     private byte[] data;
