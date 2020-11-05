@@ -20,7 +20,7 @@ public class CategoriesService{
     }
 
     public List<CategoriesDTO> findAll(Pageable pageRequest) {
-        List<Categories> categoriesList= (List<Categories>) repository.findAll(pageRequest);
+        Page<Categories> categoriesList= repository.findAll(pageRequest);
         List<CategoriesDTO> categoriesDTOList=new ArrayList<>();
 for(Categories categories:categoriesList){
     CategoriesDTO categoriesDTO=new CategoriesDTO();

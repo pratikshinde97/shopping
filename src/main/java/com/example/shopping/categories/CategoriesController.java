@@ -25,10 +25,10 @@ private final CategoriesRepository repository;
     }
 
 
-    @GetMapping()
+    @GetMapping(value = "/{page}/{size}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<CategoriesDTO>> findAll(@RequestParam("page") Optional<Integer> page,
-                                 @RequestParam("size") Optional<Integer> size) {
+    public ResponseEntity<List<CategoriesDTO>> findAll(@PathVariable("page") Optional<Integer> page,
+                                 @PathVariable("size") Optional<Integer> size) {
         return new ResponseEntity<List<CategoriesDTO>>(service.findAll(PageUtil.defaultPage(page,size)), HttpStatus.OK);
     }
 
@@ -38,11 +38,9 @@ private final CategoriesRepository repository;
     }
 byte[] abc;
 
-    @Async
     @RequestMapping(value = "/upload",method = RequestMethod.POST)
     public void upload(@Valid @RequestPart("imageFile") MultipartFile file) throws Exception {
         Preconditions.checkNotNull(file.getBytes());
-        Thread.sleep(1000L);
         abc=file.getBytes();
 
     }
