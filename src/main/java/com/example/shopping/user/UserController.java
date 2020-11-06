@@ -36,8 +36,11 @@ public class UserController {
                                            @PathVariable(name = "password" , required = true) String password) {
 
         var res = new UserDTO();
+        try {
            res= userManageService.getUserByEmailAndPassword(email, password);
-
+        } catch (Exception e) {
+            return  "Please Check Email And Password ";
+        }
         return  "Login Successful!!!";
     }
 
