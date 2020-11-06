@@ -42,13 +42,16 @@ public class UserService{
 //    }
 
     public UserDTO getUserByEmailAndPassword(String email,String password){
-        var users = userRepository.findByEmailAndPassword(email, password);
+        User users = userRepository.findByEmailAndPassword(email, password);
         UserDTO userDTO = new UserDTO();
         User user=new User();
-        user.setFirstName(users.get().getFirstName());
-        user.setLastName(users.get().getLastName());
-        user.setEmail(users.get().getEmail());
-        System.out.println(users.get().getFirstName()+" "+users.get().getLastName());
+        System.out.println(users.getEmail()+" "+users.getPassword());
+
+        user.setEmail(users.getEmail());
+        user.setPassword(users.getPassword());
+
+        System.out.println(user.getEmail()+" "+user.getPassword());
+
            return userDTO.getUserDTOObject(user);
 
     }
