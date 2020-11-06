@@ -51,8 +51,7 @@ public class UserService{
         user.setPassword(users.getPassword());
 
         System.out.println(user.getEmail()+" "+user.getPassword());
-
-           return userDTO.getUserDTOObject(user);
+         return userDTO.getUserDTOObject(user);
 
     }
 
