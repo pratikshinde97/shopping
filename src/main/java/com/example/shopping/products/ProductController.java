@@ -21,17 +21,39 @@ public class ProductController {
         this.service = service;
     }
 
-    @PostMapping(value = "/create",consumes = { "multipart/form-data" })
-    public ResponseEntity<ProductDTO> addProduct(@RequestPart("product") ProductDTO productdto,
-                                                    @RequestPart("file1") MultipartFile file1,
-                                                    @RequestPart("file2") MultipartFile file2,
-                                                    @RequestPart("file3") MultipartFile file3,
-                                                    @RequestPart("file4") MultipartFile file4) throws IOException {
+//    @PostMapping(value = "/create",consumes = { "multipart/form-data" })
+//    public ResponseEntity<ProductDTO> addProduct(@RequestPart("product") ProductDTO productdto,
+//                                                    @RequestPart("file1") MultipartFile file1,
+//                                                    @RequestPart("file2") MultipartFile file2,
+//                                                    @RequestPart("file3") MultipartFile file3,
+//                                                    @RequestPart("file4") MultipartFile file4) throws IOException {
+//        ProductDTO productDTO=new ProductDTO();
+//        System.out.println(productdto.getCategoryId());
+//        productDTO= service.saveProduct(productdto,file1.getBytes(),file2.getBytes(),file3.getBytes(),file4.getBytes());
+//        return new ResponseEntity<ProductDTO>(productDTO, HttpStatus.CREATED);
+//    }
+
+    byte[] file1,file2,file3,file4;
+        @PostMapping(value = "/upload")
+    public void uploadImages(@RequestPart("file1") MultipartFile img1,
+                                                    @RequestPart("file2") MultipartFile img2,
+                                                    @RequestPart("file3") MultipartFile img3,
+                                                    @RequestPart("file4") MultipartFile img4) throws IOException {
+
+                                            file1=img1.getBytes();
+                                            file2=img2.getBytes();
+                                            file3=img3.getBytes();
+                                            file4=img4.getBytes();
+    }
+
+        @PostMapping(value = "/create",consumes = { "application/json" })
+    public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productdto){
         ProductDTO productDTO=new ProductDTO();
         System.out.println(productdto.getCategoryId());
-        productDTO= service.saveProduct(productdto,file1.getBytes(),file2.getBytes(),file3.getBytes(),file4.getBytes());
+        productDTO= service.saveProduct(productdto,file1,file2,file3,file4);
         return new ResponseEntity<ProductDTO>(productDTO, HttpStatus.CREATED);
     }
+
     @PostMapping("/addProducts")
     public List<Product> addProducts(@RequestBody List<Product> products){
         return  service.saveProducts(products);

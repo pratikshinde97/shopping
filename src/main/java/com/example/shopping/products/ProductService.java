@@ -1,5 +1,6 @@
 package com.example.shopping.products;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public  ProductService(ProductRepository repository){this.repository=repository;
     }
 
     public List<ProductDTO> getAllProducts(Pageable pageRequest) {
-        List<Product> productsList= (List<Product>) repository.findAll(pageRequest);
+        Page<Product> productsList= repository.findAll(pageRequest);
         List<ProductDTO> productsDTOList=new ArrayList<>();
         for(Product products:productsList){
             ProductDTO productDTO=new ProductDTO();

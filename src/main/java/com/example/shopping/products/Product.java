@@ -1,21 +1,14 @@
 package com.example.shopping.products;
 
-import com.example.shopping.cart.Cart;
-import com.example.shopping.cart.CartItem;
-import com.example.shopping.categories.Categories;
 import com.example.shopping.common.BaseEntity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -54,9 +47,11 @@ public class Product extends BaseEntity {
 //    @JsonIgnore
 //    private List<CartItem> cartItemList;
 
+    @NotNull
     @Column(name="PRODUCT_NAME")
     private  String productName;
 
+    @NotNull
     @Column(name="PRODUCT_PRICE")
     private  double productPrice;
 
@@ -72,8 +67,10 @@ public class Product extends BaseEntity {
     @Lob
     private byte[] file4;
 
+    @NotNull
     @Column(name="CATEGORY_ID")
     private  String categoryId;
+
 
 
 //    @OneToMany(mappedBy = "product", cascade =CascadeType.ALL, fetch = FetchType.EAGER)
