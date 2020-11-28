@@ -15,7 +15,10 @@ import org.dozer.DozerBeanMapper;
 public class ProductDTO implements BasicOperation<Product,ProductDTO> {
 
     private  String productName;
-    private  double productPrice;
+    private  double actualPrice;
+    private  double mrp;
+    private  double salePrice;
+
     private byte[] file1;
     private byte[] file2;
     private byte[] file3;

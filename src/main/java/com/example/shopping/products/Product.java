@@ -52,8 +52,17 @@ public class Product extends BaseEntity {
     private  String productName;
 
     @NotNull
-    @Column(name="PRODUCT_PRICE")
-    private  double productPrice;
+    @Column(name="MRP")
+    private  double mrp;
+
+    @NotNull
+    @Column(name="ACTUAL_PRICE")
+    private  double actualPrice;
+
+    @NotNull
+    @Column(name="SALE_PRICE")
+    private  double salePrice;
+
 
     @Lob
     private byte[] file1;

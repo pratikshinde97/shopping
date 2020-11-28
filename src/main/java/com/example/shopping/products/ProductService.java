@@ -63,9 +63,10 @@ public  ProductService(ProductRepository repository){this.repository=repository;
         Product products=new Product();
         products= repository.findById(id).get();
 
-        products.setProductPrice(product.getProductPrice()==0.0?products.getProductPrice():product.getProductPrice());
+        products.setSalePrice(product.getSalePrice()==0.0?products.getSalePrice():product.getSalePrice());
         products.setProductName(product.getProductName()==null||product.getProductName().isEmpty()?products.getProductName():product.getProductName());
-
+        products.setActualPrice(product.getActualPrice()==0.0?products.getActualPrice():product.getActualPrice());
+        products.setMrp(product.getMrp()==0.0?products.getMrp():product.getMrp());
         products.setFile1(products.getFile1());
         products.setFile2(products.getFile2());
         products.setFile3(products.getFile3());
@@ -79,7 +80,10 @@ public  ProductService(ProductRepository repository){this.repository=repository;
         Product products=new Product();
         products= repository.findById(id).get();
 
-        products.setProductPrice(products.getProductPrice());
+        products.setSalePrice(products.getSalePrice());
+        products.setActualPrice(products.getActualPrice());
+        products.setMrp(products.getMrp());
+
         products.setProductName(products.getProductName());
 
         products.setFile1(file1.length==0.0?products.getFile1():file1);

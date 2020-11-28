@@ -29,4 +29,10 @@ public class Categories extends BaseEntity {
     @Column(name = "photo", columnDefinition="LONGBLOB")
     private byte[] data;
 
+    @Column(name = "CGST")
+    private double cgst;
+
+    @Column(name = "SGST")
+    private double sgst;
+
 }

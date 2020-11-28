@@ -77,6 +77,4 @@ return  categoriesDTOList;
         return String.format("Category %s is deleted", name);
 
     }
-
-
 }

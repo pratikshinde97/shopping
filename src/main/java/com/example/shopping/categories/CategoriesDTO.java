@@ -20,6 +20,9 @@ public class CategoriesDTO implements BasicOperation<Categories, CategoriesDTO> 
     private  byte[] data;
     private String id;
 
+    private double cgst;
+    private double sgst;
+
     @JsonIgnore
     private DozerBeanMapper mapper = new DozerBeanMapper();
 
