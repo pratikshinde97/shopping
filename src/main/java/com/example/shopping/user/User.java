@@ -31,39 +31,30 @@ public class User extends BaseEntity {
 	@Column(name = "PASSWORD", nullable = false, length = 256)
 	private String password;
 
-	@NotNull
 	@Column(name = "FIRST_NAME", length = 30)
 	private String firstName;
 
-	@NotNull
 	@Column(name = "LAST_NAME", length = 30)
 	private String lastName;
 
-	@NotNull
 	@Column(name="ADDRESS_Line1")
 	private  String addressLine1;
 
-	@NotNull
 	@Column(name="ADDRESS_Line2")
 	private  String addressLine2;
 
-	@NotNull
 	@Column(name="LANDMARK")
 	private  String landmark;
 
-	@NotNull
 	@Column(name="AREA")
 	private  String area;
 
-	@NotNull
 	@Column(name="CITY")
 	private  String city;
 
-	@NotNull
 	@Column(name="PINCODE")
 	private  String pincode;
 
-	@NotNull
 	@Column(name="MOBILE NUMBER")
 	private  String mobileNumber;
 

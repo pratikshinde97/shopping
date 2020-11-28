@@ -1,4 +1,4 @@
-package com.example.shopping.cart;
+package com.example.shopping.savedCartItem;
 
 import com.example.shopping.common.IController;
 import com.example.shopping.util.PageUtil;

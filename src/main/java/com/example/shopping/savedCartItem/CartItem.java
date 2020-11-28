@@ -1,8 +1,7 @@
-package com.example.shopping.cart;
+package com.example.shopping.savedCartItem;
 
 import com.example.shopping.common.BaseEntity;
 import com.example.shopping.products.Product;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 

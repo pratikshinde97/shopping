@@ -1,4 +1,4 @@
-package com.example.shopping.cart;
+package com.example.shopping.savedCartItem;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

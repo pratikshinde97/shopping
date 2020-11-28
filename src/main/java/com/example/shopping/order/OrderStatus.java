@@ -1,5 +1,5 @@
 package com.example.shopping.order;
 
 public enum OrderStatus {
-    NEW,PENDING,COMPLETED
+    NEW,PENDING,COMPLETED,CANCELED
 }

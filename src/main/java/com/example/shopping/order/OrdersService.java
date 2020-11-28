@@ -4,6 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrdersService implements IService<Orders, String> {
 
@@ -24,6 +26,10 @@ public class OrdersService implements IService<Orders, String> {
 
     public String create(Orders resource) {
         return repository.save(resource).getId();
+    }
+    public List<Orders> saveOrders(List<Orders> orders)
+    {
+        return repository.saveAll(orders);
     }
 
     public void update(Orders resource) {
