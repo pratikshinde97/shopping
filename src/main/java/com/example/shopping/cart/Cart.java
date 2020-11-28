@@ -3,6 +3,8 @@ package com.example.shopping.cart;
 import com.example.shopping.common.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -15,7 +17,6 @@ public class Cart extends BaseEntity {
 //    @Access(AccessType.FIELD)
 //    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true , mappedBy="cart")
 //    private List<Products> products = new ArrayList<>();
-
 
 
 //
@@ -59,6 +60,7 @@ public class Cart extends BaseEntity {
     @Column(name = "CUSTOMER_ID")
     private String customerId;
 
-
+    @Column(name = "TAX_TOTAL")
+    private double taxTotal;
 
 }
