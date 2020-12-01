@@ -103,7 +103,28 @@ public  ProductService(ProductRepository repository){this.repository=repository;
 
     }
 
-    public String updateProductImageById(String id, byte[] file1, byte[] file2, byte[]file3, byte[]file4){
+//    public String updateProductImageById(String id, byte[] file1, byte[] file2, byte[]file3, byte[]file4){
+//        Product products=new Product();
+//        products= repository.findById(id).get();
+//
+//        products.setSalePrice(products.getSalePrice());
+//        products.setActualPrice(products.getActualPrice());
+//        products.setMrp(products.getMrp());
+//
+//        products.setProductName(products.getProductName());
+//
+//        products.setFile1(file1.length==0.0?products.getFile1():file1);
+//        products.setFile2(file2.length==0.0?products.getFile2():file2);
+//        products.setFile3(file3.length==0.0?products.getFile3():file3);
+//        products.setFile4(file4.length==0.0?products.getFile4():file4);
+//         repository.save(products);
+//        return "Product Images Successfully!";
+//
+//    }
+
+
+
+    public String updateProductImageById(String id, List<byte[]> file1){
         Product products=new Product();
         products= repository.findById(id).get();
 
@@ -113,13 +134,23 @@ public  ProductService(ProductRepository repository){this.repository=repository;
 
         products.setProductName(products.getProductName());
 
-        products.setFile1(file1.length==0.0?products.getFile1():file1);
-        products.setFile2(file2.length==0.0?products.getFile2():file2);
-        products.setFile3(file3.length==0.0?products.getFile3():file3);
-        products.setFile4(file4.length==0.0?products.getFile4():file4);
-         repository.save(products);
-        return "Product Updated Images Successfully!";
+        products.setFile1(file1.get(0));
+        products.setFile2(file1.get(1));
+        products.setFile3(file1.get(2));
+        products.setFile4(file1.get(3));
+        repository.save(products);
+        return "Product Images Successfully!";
 
     }
+
+
+
+
+
+
+
+
+
+
 
 }

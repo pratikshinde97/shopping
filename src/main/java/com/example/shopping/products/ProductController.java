@@ -94,12 +94,18 @@ List<byte[]> file1=new ArrayList<>();
         return new ResponseEntity<String>(service.updateProductById(id,productdto),HttpStatus.OK);
     }
 
+//    @PutMapping("/productImageById/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResponseEntity<String> updateProductImageById(@PathVariable String id,
+//                                          @RequestPart("file1") MultipartFile left, @RequestPart("file2") MultipartFile right,
+//                                          @RequestPart("file3") MultipartFile top, @RequestPart("file4") MultipartFile bottom) throws IOException {
+//        return  new ResponseEntity<String>(service.updateProductImageById(id,left.getBytes(),right.getBytes(),top.getBytes(),bottom.getBytes()),HttpStatus.OK);
+//    }
+
     @PutMapping("/productImageById/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> updateProductImageById(@PathVariable String id,
-                                          @RequestPart("file1") MultipartFile left, @RequestPart("file2") MultipartFile right,
-                                          @RequestPart("file3") MultipartFile top, @RequestPart("file4") MultipartFile bottom) throws IOException {
-        return  new ResponseEntity<String>(service.updateProductImageById(id,left.getBytes(),right.getBytes(),top.getBytes(),bottom.getBytes()),HttpStatus.OK);
+    public ResponseEntity<String> updateProductImageById(@PathVariable String id) throws IOException {
+        return  new ResponseEntity<String>(service.updateProductImageById(id,file1),HttpStatus.OK);
     }
 
 //    @PutMapping("/productByNameAndPrice/{name}/{price}")
