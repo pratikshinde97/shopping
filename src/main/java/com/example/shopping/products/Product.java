@@ -47,36 +47,43 @@ public class Product extends BaseEntity {
 //    @JsonIgnore
 //    private List<CartItem> cartItemList;
 
-    @NotNull
     @Column(name="PRODUCT_NAME")
     private  String productName;
 
-    @NotNull
     @Column(name="MRP")
     private  double mrp;
 
-    @NotNull
     @Column(name="ACTUAL_PRICE")
     private  double actualPrice;
 
-    @NotNull
     @Column(name="SALE_PRICE")
     private  double salePrice;
 
+//    @Lob
+//    private byte[] file1;
+//
+//    @Lob
+//    private byte[] file2;
+//
+//    @Lob
+//    private byte[] file3;
+//
+//    @Lob
+//    private byte[] file4;
 
     @Lob
+    @Column(name = "file1", columnDefinition="LONGBLOB")
     private byte[] file1;
-
     @Lob
+    @Column(name = "file2", columnDefinition="LONGBLOB")
     private byte[] file2;
-
     @Lob
+    @Column(name = "file3", columnDefinition="LONGBLOB")
     private byte[] file3;
-
     @Lob
+    @Column(name = "file4", columnDefinition="LONGBLOB")
     private byte[] file4;
 
-    @NotNull
     @Column(name="CATEGORY_ID")
     private  String categoryId;
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,24 +34,35 @@ public class ProductController {
 //        return new ResponseEntity<ProductDTO>(productDTO, HttpStatus.CREATED);
 //    }
 
-    byte[] file1,file2,file3,file4;
+List<byte[]> file1=new ArrayList<>();
         @PostMapping(value = "/upload")
-    public void uploadImages(@RequestPart("file1") MultipartFile img1,
-                                                    @RequestPart("file2") MultipartFile img2,
-                                                    @RequestPart("file3") MultipartFile img3,
-                                                    @RequestPart("file4") MultipartFile img4) throws IOException {
+    public void uploadImages(@RequestPart("imagefiles") List<MultipartFile> img) throws IOException {
+                                        int size=  img.size();
+                                          for (int i=0;i<size;i++)
+                                          {
+                                             file1.add(img.get(i).getBytes());
+                                          }
 
-                                            file1=img1.getBytes();
-                                            file2=img2.getBytes();
-                                            file3=img3.getBytes();
-                                            file4=img4.getBytes();
     }
+
+//    @PostMapping(value = "/upload")
+//    public void uploadImages(@RequestPart("file1") MultipartFile img1,
+//                             @RequestPart("file2") MultipartFile img2,
+//                             @RequestPart("file3") MultipartFile img3,
+//                             @RequestPart("file4") MultipartFile img4) throws IOException {
+//
+//        file1=img1.getBytes();
+//        file2=img2.getBytes();
+//        file3=img3.getBytes();
+//        file4=img4.getBytes();
+//    }
+
 
         @PostMapping(value = "/create",consumes = { "application/json" })
     public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productdto){
         ProductDTO productDTO=new ProductDTO();
         System.out.println(productdto.getCategoryId());
-        productDTO= service.saveProduct(productdto,file1,file2,file3,file4);
+        productDTO= service.saveProduct(productdto,file1);
         return new ResponseEntity<ProductDTO>(productDTO, HttpStatus.CREATED);
     }
 
@@ -103,14 +115,11 @@ public class ProductController {
         return new ResponseEntity<String>(service.deleteProductById(id),HttpStatus.OK);
     }
 
+
     //    @DeleteMapping("/deleteByName/{name}")
 //    public  String deleteProductByName(@PathVariable String name)
 //    {
 //        return  service.deleteByProductName(name);
 //    }
-
-
-
-
 
 }

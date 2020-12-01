@@ -13,11 +13,38 @@ public class ProductService {
     private ProductRepository repository;
 public  ProductService(ProductRepository repository){this.repository=repository;}
 
-    public ProductDTO saveProduct(ProductDTO productdto, byte[]file1, byte[]file2, byte[]file3, byte[]file4){
-        productdto.setFile1(file1);
-        productdto.setFile2(file2);
-        productdto.setFile3(file3);
-        productdto.setFile4(file4);
+    public ProductDTO saveProduct(ProductDTO productdto, List<byte[]>file1){
+//        productdto.setFile1(file1);
+//        productdto.setFile2(file2);
+//        productdto.setFile3(file3);
+//        productdto.setFile4(file4);
+
+        System.out.println(file1.size());
+      if(file1.size()==1)
+      {
+          productdto.setFile1(file1.get(0));
+      }
+        if(file1.size()==2)
+        {
+            productdto.setFile1(file1.get(0));
+            productdto.setFile2(file1.get(1));
+
+        }
+        if(file1.size()==3)
+        {
+            productdto.setFile1(file1.get(0));
+            productdto.setFile2(file1.get(1));
+            productdto.setFile3(file1.get(2));
+        }
+        if(file1.size()==4)
+        {
+            productdto.setFile1(file1.get(0));
+            productdto.setFile2(file1.get(1));
+            productdto.setFile3(file1.get(2));
+            productdto.setFile4(file1.get(3));
+
+        }
+
         System.out.println(productdto.getCategoryId());
         return new ProductDTO(repository.save(productdto.getEntity(null)));
     }
