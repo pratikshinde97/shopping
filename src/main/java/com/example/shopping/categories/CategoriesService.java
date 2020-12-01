@@ -1,5 +1,6 @@
 package com.example.shopping.categories;
 import com.example.shopping.model.Response;
+import com.example.shopping.products.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,10 +14,13 @@ import java.util.List;
 public class CategoriesService{
     @Autowired
     private final CategoriesRepository repository;
+    @Autowired
+    private final ProductRepository productRepository;
 
 
-    public CategoriesService(CategoriesRepository repository) {
+    public CategoriesService(CategoriesRepository repository,ProductRepository productRepository) {
         this.repository = repository;
+        this.productRepository=productRepository;
     }
 
     public List<CategoriesDTO> findAll(Pageable pageRequest) {
@@ -73,6 +77,7 @@ return  categoriesDTOList;
 
     public String deleteById(String id) {
         String name=repository.findById(id).get().getCategoryName();
+        productRepository.deleteByCategoryId(id);
         repository.deleteById(id);
         return String.format("Category %s is deleted", name);
 
