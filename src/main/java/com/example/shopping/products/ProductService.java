@@ -118,7 +118,7 @@ public  ProductService(ProductRepository repository){this.repository=repository;
         products.setFile3(file3.length==0.0?products.getFile3():file3);
         products.setFile4(file4.length==0.0?products.getFile4():file4);
          repository.save(products);
-        return "Product Images Successfully!";
+        return "Product Updated Images Successfully!";
 
     }
 

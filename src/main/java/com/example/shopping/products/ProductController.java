@@ -88,7 +88,7 @@ List<byte[]> file1=new ArrayList<>();
 //    public Products getProductByName(@PathVariable String name){
 //        return  service.getProductByName(name);
 //    }
-    @PutMapping(value = "/productById/{id}",consumes = { "multipart/form-data" })
+    @PutMapping(value = "/productById/{id}",consumes = { "application/json" })
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> updateProductById(@PathVariable String id, @RequestPart ProductDTO productdto){
         return new ResponseEntity<String>(service.updateProductById(id,productdto),HttpStatus.OK);
