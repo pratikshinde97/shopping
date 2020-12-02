@@ -71,7 +71,7 @@ List<byte[]> file1=new ArrayList<>();
         return  service.saveProducts(products);
     }
 
-    @GetMapping("/products")
+    @GetMapping(value = "/{page}/{size}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<ProductDTO>> findAll(@RequestParam("page") Optional<Integer> page,
                                                        @RequestParam("size") Optional<Integer> size) {
