@@ -2,9 +2,9 @@ package com.example.shopping.temperoryOrders;
 import com.example.shopping.common.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -40,5 +40,7 @@ class TemporaryOrders extends BaseEntity {
 
     @Column(name = "TAX_TOTAL")
     private double taxTotal;
+
+
 
 }

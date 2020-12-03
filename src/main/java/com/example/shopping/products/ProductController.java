@@ -34,9 +34,10 @@ public class ProductController {
 //        return new ResponseEntity<ProductDTO>(productDTO, HttpStatus.CREATED);
 //    }
 
-List<byte[]> file1=new ArrayList<>();
+List<byte[]> file1;
         @PostMapping(value = "/upload")
     public void uploadImages(@RequestPart("imagefiles") List<MultipartFile> img) throws IOException {
+            file1=new ArrayList<>();
                                         int size=  img.size();
                                           for (int i=0;i<size;i++)
                                           {
@@ -80,7 +81,7 @@ List<byte[]> file1=new ArrayList<>();
 
 
 
-    @GetMapping("/productById/{id}")
+    @GetMapping("/{id}")
     public ProductDTO getProductById(@PathVariable String id){
         return  service.getProductById(id);
     }
@@ -114,7 +115,7 @@ List<byte[]> file1=new ArrayList<>();
 //        return  service.updateProductByNameAndPrice(id,name,product);
 //    }
 
-    @DeleteMapping("/deleteById/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteProductById(@PathVariable String id)
     {
@@ -127,5 +128,12 @@ List<byte[]> file1=new ArrayList<>();
 //    {
 //        return  service.deleteByProductName(name);
 //    }
+
+
+    @GetMapping("/productByCategoryId/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<ProductDTO>> getProductByCategoryId(@PathVariable String id){
+        return new ResponseEntity<List<ProductDTO>>(service.getProductByCategoryId(id),HttpStatus.OK);
+    }
 
 }

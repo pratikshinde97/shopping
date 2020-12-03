@@ -18,6 +18,7 @@ import java.util.List;
 @Service
 public class TemporaryOrdersService implements IService<TemporaryOrders, String> {
 
+
     private final TemporaryOrdersRepository repository;
 
     @Autowired
