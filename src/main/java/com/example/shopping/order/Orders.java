@@ -1,9 +1,8 @@
 package com.example.shopping.order;
 
 
-import com.example.shopping.cart.Cart;
 import com.example.shopping.common.BaseEntity;
-import com.example.shopping.user.User;
+import com.example.shopping.temperoryOrders.TemporaryOrders;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,11 +18,21 @@ import java.util.Set;
 @Setter
 public class Orders extends BaseEntity {
 
-    @Column(name = "CUSTOMER_ID")
-    private  String customerId;
+//    @OneToMany(
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    private List<TemporaryOrders> order = new ArrayList<>();
 
-    @Column(name = "TOTAL_AMOUNT")
-    private  String totalAmount;
+
+
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "pc_fid", referencedColumnName = "id")
+//    List < TemporaryOrders > orders = new ArrayList < > ();
+
+
+    @OneToMany(mappedBy="order")
+    private Set<TemporaryOrders> orders;
 
     @Column(name = "ORDER_STATUS")
     private  OrderStatus orderStatus;
@@ -34,22 +43,14 @@ public class Orders extends BaseEntity {
     @Column(name = "COMPLETED_DATE")
     private  Date completedDate;
 
-    @Column(name = "QUANTITY")
-    private int quantity;
-
     @Column(name = "TOTAL_PRICE")
     private double totalPrice;
 
     @Column(name = "GRAND_TOTAL")
     private double grandTotal;
 
-    @Column(name = "PRODUCT_ID")
-    private String productId;
-
     @Column(name = "TAX_TOTAL")
     private double taxTotal;
-
-
 
 
 //    @OneToOne(fetch = FetchType.LAZY,optional = false)

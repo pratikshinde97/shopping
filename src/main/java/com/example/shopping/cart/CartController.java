@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cart")
-public class CartController implements IController<Cart, String> {
+public class CartController {
 
     private final CartService service;
     private final CartRepository cartRepository;
@@ -28,33 +28,33 @@ public class CartController implements IController<Cart, String> {
 
     @GetMapping("/{page}/{size}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Cart> findAll(@PathVariable("page") Optional<Integer> page,
+    public ResponseEntity<List<CartDTO>>findAll(@PathVariable("page") Optional<Integer> page,
                               @PathVariable("size") Optional<Integer> size) {
-        Page<Cart> resultPage = service.findAll(PageUtil.defaultPage(page,size));
+        return new ResponseEntity<List<CartDTO>>(service.findAll(PageUtil.defaultPage(page,size)), HttpStatus.OK);
         /*if (page.orElse(PageUtil.DEFAULT_CURRENT_PAGE_NO) > resultPage.getTotalPages()) {
             throw new ResourceNotFoundException();
         }*/
-        return resultPage.getContent();
     }
 
     @GetMapping(value = "/{id}")
-    public Cart findById(@PathVariable("id") String id) {
+    public CartDTO findById(@PathVariable("id") String id) {
         return RestPreconditions.checkFound(service.findById(id));
     }
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public String create(@RequestBody Cart resource) {
+    public ResponseEntity<CartDTO>  create(@RequestBody CartDTO resource) {
         Preconditions.checkNotNull(resource);
-        return service.create(resource);
+        service.create(resource);
+        return new ResponseEntity<CartDTO>(resource,HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable( "id" ) String id, @RequestBody Cart resource) {
+    public void update(@PathVariable( "id" ) String id, @RequestBody CartDTO resource) {
         Preconditions.checkNotNull(resource);
         RestPreconditions.checkNotNull(service.findById(resource.getId()));
-        service.update(resource);
+        service.update(id,resource);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -63,29 +63,29 @@ public class CartController implements IController<Cart, String> {
         service.deleteById(id);
     }
 
-    @DeleteMapping("/deleteFromCart")
-    public ResponseEntity<?> deleteProduct(@Valid @RequestBody Map<String,Object> userMap){
-        List<String> idList=(List<String>) userMap.get("id_list");
-        List<Cart> productList=(List<Cart>) cartRepository.findAllById(idList);
-        cartRepository.deleteAll(productList);
-        return ResponseEntity.status(HttpStatus.OK).body("Deleted item : "+idList);
+//    @DeleteMapping("/deleteFromCart")
+//    public ResponseEntity<?> deleteProduct(@Valid @RequestBody Map<String,Object> userMap){
+//        List<String> idList=(List<String>) userMap.get("id_list");
+//        List<Cart> productList=(List<Cart>) cartRepository.findAllById(idList);
+//        cartRepository.deleteAll(productList);
+//        return ResponseEntity.status(HttpStatus.OK).body("Deleted item : "+idList);
+//
+//    }
 
-    }
-
-    @RequestMapping(value = "customerId/{customerId}/productId/{productId}",method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteByCustomerIdAndProductId(@PathVariable("customerId") String customerId,@PathVariable("productId") String productId) {
-        service.deleteByCustomerIdAndProductId(customerId,productId);
-    }
-    @RequestMapping(value = "/quantity/{quantity}",method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteByQuantity(@PathVariable("quantity") int quantity) {
-        service.deleteByQuantity(quantity);
-    }
-
-    @GetMapping(value = "customerId/{customerId}")
-    public void findAllByCustomerId(@PathVariable("customerId") String customerId) {
-         service.findAllByCustomerId(customerId);
-    }
+//    @RequestMapping(value = "customerId/{customerId}/productId/{productId}",method = RequestMethod.DELETE)
+//    @ResponseStatus(HttpStatus.OK)
+//    public void deleteByCustomerIdAndProductId(@PathVariable("customerId") String customerId,@PathVariable("productId") String productId) {
+//        service.deleteByCustomerIdAndProductId(customerId,productId);
+//    }
+//    @RequestMapping(value = "/quantity/{quantity}",method = RequestMethod.DELETE)
+//    @ResponseStatus(HttpStatus.OK)
+//    public void deleteByQuantity(@PathVariable("quantity") int quantity) {
+//        service.deleteByQuantity(quantity);
+//    }
+//
+//    @GetMapping(value = "customerId/{customerId}")
+//    public void findAllByCustomerId(@PathVariable("customerId") String customerId) {
+//         service.findAllByCustomerId(customerId);
+//    }
 
 }

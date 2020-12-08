@@ -2,7 +2,6 @@ package com.example.shopping.temperoryOrders;
 
 
 import com.example.shopping.common.IController;
-import com.example.shopping.order.Orders;
 import com.example.shopping.util.PageUtil;
 import com.example.shopping.util.RestPreconditions;
 import com.google.common.base.Preconditions;
@@ -57,7 +56,6 @@ public class TemporaryOrdersController implements IController<TemporaryOrders, S
         RestPreconditions.checkNotNull(service.findById(resource.getId()));
         service.update(resource);
     }
-
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)

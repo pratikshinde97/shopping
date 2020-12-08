@@ -64,18 +64,18 @@ public class TemporaryOrdersService implements IService<TemporaryOrders, String>
         Orders newOrders=new Orders();
         List<TemporaryOrders> carts= repository.findAllByCustomerId(customerId);
 
-        for (int i=0;i<carts.size();i++)
-        {
-            newOrders.setCustomerId(customerId);
-            newOrders.setProductId(carts.get(i).getProductId());
-            newOrders.setCreatedDate(new Date(formatter.format(date)));
-            newOrders.setOrderStatus(OrderStatus.NEW);
-            newOrders.setQuantity(carts.get(i).getQuantity());
-            newOrders.setTotalPrice(carts.get(i).getTotalPrice());
-            newOrders.setGrandTotal(carts.get(i).getGrandTotal());
-            orders.add(newOrders);
-            System.out.println("temporaryOrders.setProductId(carts.get(i).getProductId());"+carts.get(i).getProductId());
-        }
+//        for (int i=0;i<carts.size();i++)
+//        {
+//            newOrders.setCustomerId(customerId);
+//            newOrders.setProductId(carts.get(i).getProductId());
+//            newOrders.setCreatedDate(new Date(formatter.format(date)));
+//            newOrders.setOrderStatus(OrderStatus.NEW);
+//            newOrders.setQuantity(carts.get(i).getQuantity());
+//            newOrders.setTotalPrice(carts.get(i).getTotalPrice());
+//            newOrders.setGrandTotal(carts.get(i).getGrandTotal());
+//            orders.add(newOrders);
+//            System.out.println("temporaryOrders.setProductId(carts.get(i).getProductId());"+carts.get(i).getProductId());
+//        }
         ordersRepository.saveAll(orders);
         cartRepository.deleteByCustomerId(customerId);
         repository.deleteByCustomerId(customerId);

@@ -85,10 +85,17 @@ List<byte[]> file1;
     public ProductDTO getProductById(@PathVariable String id){
         return  service.getProductById(id);
     }
+
+//    @GetMapping("/{productId}/{id}")
+//    public ProductDTO getProductImagesById(@PathVariable String id){
+//        return  service.getProductImagesById(id);
+//    }
+
 //    @GetMapping("/productByName/{name}")
 //    public Products getProductByName(@PathVariable String name){
 //        return  service.getProductByName(name);
 //    }
+
     @PutMapping(value = "/productById/{id}",consumes = { "application/json" })
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> updateProductById(@PathVariable String id, @RequestPart ProductDTO productdto){
@@ -103,7 +110,7 @@ List<byte[]> file1;
 //        return  new ResponseEntity<String>(service.updateProductImageById(id,left.getBytes(),right.getBytes(),top.getBytes(),bottom.getBytes()),HttpStatus.OK);
 //    }
 
-    @PutMapping("/productImageById/{id}")
+    @PutMapping("/productImageById/list/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> updateProductImageById(@PathVariable String id) throws IOException {
         return  new ResponseEntity<String>(service.updateProductImageById(id,file1),HttpStatus.OK);

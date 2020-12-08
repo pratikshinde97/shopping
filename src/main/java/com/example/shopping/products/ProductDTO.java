@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.dozer.DozerBeanMapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,14 +21,15 @@ public class ProductDTO implements BasicOperation<Product,ProductDTO> {
     private  double actualPrice;
     private  double mrp;
     private  double salePrice;
-
     private byte[] file1;
     private byte[] file2;
     private byte[] file3;
     private byte[] file4;
     private  String categoryId;
     private String id;
-
+    private int inStock;
+   // private List<byte[]> list=new ArrayList<>();
+    private String productDescription;
 
     @JsonIgnore
     private DozerBeanMapper mapper = new DozerBeanMapper();

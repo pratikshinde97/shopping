@@ -64,12 +64,32 @@ public class ProductService {
     }
 
     public ProductDTO getProductById(String id) {
+        List<byte[]>list=new ArrayList<>();
+
         ProductDTO productDTO = new ProductDTO();
         repository.findById(id).ifPresent(product -> {
+//            list.add(product.getFile1());
+//            list.add(product.getFile2());
+//            list.add(product.getFile3());
+//            list.add(product.getFile4());
+//            productDTO.setList(list);
             productDTO.getDTO(product);
         });
         return productDTO;
     }
+//
+//    public ProductDTO getProductImagesById(String id) {
+//        List<byte[]>list=new ArrayList<>();
+//        ProductDTO productDTO = new ProductDTO();
+//        repository.findById(id).ifPresent(product -> {
+//            list.add(product.getFile1());
+//            list.add(product.getFile2());
+//            list.add(product.getFile3());
+//            list.add(product.getFile4());
+//            productDTO.setList(list);
+//        });
+//        return productDTO;
+//    }
 
 //    public Products getProductByName(String name){
 //        return  repository.findByName(name);

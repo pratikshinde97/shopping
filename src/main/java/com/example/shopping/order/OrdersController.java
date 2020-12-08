@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -61,12 +62,20 @@ public class OrdersController implements IController<Orders, String> {
         service.update(resource);
     }
 
+//    @PutMapping(value = "/{id}/{date}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public void updateOrder(@PathVariable( "id" ) String id, @PathVariable( "date" ) Date date, @RequestBody List<Orders> resource) {
+//        Preconditions.checkNotNull(resource);
+//        service.updateOrder(resource);
+//    }
+
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") String id) {
         service.deleteById(id);
     }
+
 
 
 }

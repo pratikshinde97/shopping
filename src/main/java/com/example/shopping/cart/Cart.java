@@ -38,29 +38,34 @@ public class Cart extends BaseEntity {
 //    @JoinColumn(name = "CART_ID")
 //    private Cart cart;
 
+//********
 
-    @Column(name = "QUANTITY")
-    private int quantity;
 
-    @Column(name = "TOTAL_PRICE")
-    private double totalPrice;
-
-    @Column(name = "GRAND_TOTAL")
-    private double grandTotal;
-
-    @Column(name = "CREATED_DATE")
-    private Date createdDate;
-
-    @Column(name = "COMPLETED_DATE")
-    private  Date completeDate;
+//
+//    @Column(name = "TOTAL_PRICE")
+//    private double totalPrice;
+//
+//    @Column(name = "GRAND_TOTAL")
+//    private double grandTotal;
+//
+//    @Column(name = "CREATED_DATE")
+//    private Date createdDate;
+//
+//    @Column(name = "COMPLETED_DATE")
+//    private  Date completeDate;
 
     @Column(name = "PRODUCT_ID")
     private String productId;
 
+    @Column(name = "QUANTITY")
+    private int quantity;
+
     @Column(name = "CUSTOMER_ID")
     private String customerId;
 
-    @Column(name = "TAX_TOTAL")
-    private double taxTotal;
+
+
+//    @Column(name = "TAX_TOTAL")
+//    private double taxTotal;
 
 }

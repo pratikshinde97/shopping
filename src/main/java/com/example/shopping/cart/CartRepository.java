@@ -22,4 +22,7 @@ public  interface CartRepository extends JpaRepository<Cart, String> {
 
     @Transactional
     void deleteByCustomerId(String customerId);
+
+    @Transactional
+    void deleteByProductId(String productId);
 }

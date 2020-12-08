@@ -21,6 +21,7 @@ public class OrdersService implements IService<Orders, String> {
     }
 
     public Orders findById(String id) {
+
        return  repository.findById(id).orElse(null);
     }
 
@@ -35,6 +36,10 @@ public class OrdersService implements IService<Orders, String> {
     public void update(Orders resource) {
         repository.save(resource);
     }
+
+//    public void updateOrder(List<Orders> resource) {
+//                repository.save(resource);
+//    }
 
     public void deleteById(String id) {
         repository.deleteById(id);

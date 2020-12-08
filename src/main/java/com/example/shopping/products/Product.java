@@ -87,6 +87,11 @@ public class Product extends BaseEntity {
     @Column(name="CATEGORY_ID")
     private  String categoryId;
 
+    @Column(name="PRODUCT_DESCRIPTION")
+    private  String productDescription;
+
+    @Column(name="IN_STOCK")
+    private  int inStock;
 
 
 //    @OneToMany(mappedBy = "product", cascade =CascadeType.ALL, fetch = FetchType.EAGER)
