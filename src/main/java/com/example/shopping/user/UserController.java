@@ -32,16 +32,13 @@ public class UserController {
         return new ResponseEntity<UserDTO>(res, HttpStatus.CREATED);
     }
     @RequestMapping(method = RequestMethod.GET, value="/{email}/{password}")
-    public String getUser(@PathVariable(name = "email" , required = true) String email,
+    public UserDTO getUser(@PathVariable(name = "email" , required = true) String email,
                                            @PathVariable(name = "password" , required = true) String password) {
 
         var res = new UserDTO();
-        try {
            res= userManageService.getUserByEmailAndPassword(email, password);
-        } catch (Exception e) {
-            return  "Please Check Email And Password ";
-        }
-        return "Login Successful!!!";
+        System.out.println("res"+res.getId());
+        return res;
     }
 
 

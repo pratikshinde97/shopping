@@ -1,6 +1,7 @@
 package com.example.shopping.deliveryCharges;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class DeliveryChargesService{
     }
 
     public List<DeliveryChargesDTO> findAll(Pageable pageRequest) {
-        List<DeliveryCharges> deliveryChargesList= (List<DeliveryCharges>) repository.findAll(pageRequest);
+        Page<DeliveryCharges> deliveryChargesList= repository.findAll(pageRequest);
         List<DeliveryChargesDTO> deliveryChargesDTOS=new ArrayList<>();
         for(DeliveryCharges deliveryCharges:deliveryChargesList){
             DeliveryChargesDTO deliveryChargesDTO=new DeliveryChargesDTO();
@@ -27,6 +28,7 @@ public class DeliveryChargesService{
         }
         return  deliveryChargesDTOS;
     }
+
 
     public DeliveryChargesDTO findByDeliveryChargesId(String id) {
         DeliveryChargesDTO deliveryChargesDTO=new DeliveryChargesDTO();

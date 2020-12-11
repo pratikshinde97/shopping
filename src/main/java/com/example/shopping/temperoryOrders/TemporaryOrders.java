@@ -1,13 +1,12 @@
 package com.example.shopping.temperoryOrders;
 
 import com.example.shopping.common.BaseEntity;
-import com.example.shopping.order.Orders;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.domain.Sort;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "TEMPORARY_ORDERS")
@@ -25,12 +24,11 @@ class TemporaryOrders extends BaseEntity {
     @Column(name = "PRODUCT_ID")
     private String productId;
 
-    @Access(AccessType.FIELD)
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")
-    @JsonBackReference
-    private Orders order;
-
+//    @Access(AccessType.FIELD)
+//    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")
+//    @JsonBackReference
+//    private Orders order;
 
 
 }

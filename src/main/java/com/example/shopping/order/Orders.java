@@ -1,16 +1,13 @@
 package com.example.shopping.order;
 
-
 import com.example.shopping.common.BaseEntity;
 import com.example.shopping.temperoryOrders.TemporaryOrders;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "ORDERS")
@@ -18,12 +15,11 @@ import java.util.Set;
 @Setter
 public class Orders extends BaseEntity {
 
-//    @OneToMany(
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
-//    )
-//    private List<TemporaryOrders> order = new ArrayList<>();
-
+    @OneToMany(
+            cascade = CascadeType.MERGE,
+            orphanRemoval = true
+    )
+    private List<TemporaryOrders> order = new ArrayList<>();
 
 
 //    @OneToMany(cascade = CascadeType.ALL)
@@ -31,10 +27,14 @@ public class Orders extends BaseEntity {
 //    List < TemporaryOrders > orders = new ArrayList < > ();
 
 
-    @OneToMany(mappedBy="order")
-    private Set<TemporaryOrders> orders;
+//    @OneToMany(mappedBy="order")
+//    private Set<TemporaryOrders> orders;
+
+//    @Column(name = "ORDERS")
+//    private Set<TemporaryOrders> orders;
 
     @Column(name = "ORDER_STATUS")
+    @Enumerated(EnumType.STRING)
     private  OrderStatus orderStatus;
 
     @Column(name = "CREATED_DATE")
@@ -51,7 +51,6 @@ public class Orders extends BaseEntity {
 
     @Column(name = "TAX_TOTAL")
     private double taxTotal;
-
 
 //    @OneToOne(fetch = FetchType.LAZY,optional = false)
 //    @JoinColumn(name = "Id")

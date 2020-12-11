@@ -1,22 +1,15 @@
 package com.example.shopping.cart;
 
 import com.example.shopping.categories.CategoriesRepository;
-import com.example.shopping.common.IService;
-import com.example.shopping.deliveryCharges.DeliveryCharges;
 import com.example.shopping.deliveryCharges.DeliveryChargesRepository;
-import com.example.shopping.products.Product;
 import com.example.shopping.products.ProductRepository;
-import com.example.shopping.temperoryOrders.TemporaryOrderStatus;
-import com.example.shopping.temperoryOrders.TemporaryOrders;
 import com.example.shopping.temperoryOrders.TemporaryOrdersRepository;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -133,7 +126,7 @@ public class CartService  {
         Cart cart=new Cart();
         cart=repository.findById(id).get();
         cart.setId(resource.getId());
-        cart.setCustomerId(resource.getCustomerId()==null?cart.getCustomerId():resource.getCustomerId());
+        cart.setCustomerId(cart.getCustomerId());
         cart.setProductId(resource.getProductId()==null?cart.getProductId():resource.getProductId());
         cart.setQuantity(resource.getQuantity()==0?cart.getQuantity():resource.getQuantity());
         resource.getEntity(null);

@@ -79,7 +79,7 @@ public class UserDTO {
 
     @JsonIgnore
     public UserDTO getUserDTOObject(User user){
-
+this.setId(user.getId());
         this.setFirstName(user.getFirstName());
         this.setLastName(user.getLastName());
         this.setEmail(user.getEmail());

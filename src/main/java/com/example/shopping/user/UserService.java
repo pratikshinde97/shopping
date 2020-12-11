@@ -49,6 +49,7 @@ public class UserService{
 
         user.setEmail(users.getEmail());
         user.setPassword(users.getPassword());
+        user.setId(users.getId());
 
         System.out.println(user.getEmail()+" "+user.getPassword());
          return userDTO.getUserDTOObject(user);

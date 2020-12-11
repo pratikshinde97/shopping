@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/orders")
-public class OrdersController implements IController<Orders, String> {
+public class OrdersController {
 
     private final OrdersService service;
 
@@ -54,12 +54,10 @@ public class OrdersController implements IController<Orders, String> {
         return  service.saveOrders(orders);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/{id}/{status}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable( "id" ) String id, @RequestBody Orders resource) {
-        Preconditions.checkNotNull(resource);
-        RestPreconditions.checkNotNull(service.findById(resource.getId()));
-        service.update(resource);
+    public void update(@PathVariable( "id" ) String id,OrderStatus status) {
+        service.update(id,status);
     }
 
 //    @PutMapping(value = "/{id}/{date}")

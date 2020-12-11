@@ -22,7 +22,7 @@ public class DeliveryChargesController{
     }
 
 
-    @GetMapping()
+    @GetMapping(value = "/{page}/{size}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<DeliveryChargesDTO>> findAll(@RequestParam("page") Optional<Integer> page,
                                                        @RequestParam("size") Optional<Integer> size) {
@@ -33,6 +33,7 @@ public class DeliveryChargesController{
     public DeliveryChargesDTO findById(@PathVariable("id") String id) {
         return RestPreconditions.checkFound(service.findByDeliveryChargesId(id));
     }
+
 
 
 
@@ -48,7 +49,7 @@ public class DeliveryChargesController{
         return new ResponseEntity<DeliveryChargesDTO>(deli,HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "deliverChargesById/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> updateDelivery(@PathVariable( "id" ) String id,@RequestBody DeliveryChargesDTO resource) throws Exception {
         return new ResponseEntity<String>(service.updateDeliveryCharges(id,resource),HttpStatus.OK);
