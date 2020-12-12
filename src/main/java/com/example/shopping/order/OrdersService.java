@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,14 +21,24 @@ public class OrdersService{
         this.repository = repository;
     }
 
-    public Page<Orders> findAll(Pageable pageRequest) {
-        return repository.findAll(pageRequest);
 
+
+    public List<OrdersDTO> findAll(Pageable pageRequest) {
+        Page<Orders> ordersList= repository.findAll(pageRequest);
+        List<OrdersDTO> ordersDTOS=new ArrayList<>();
+        for(Orders orders:ordersList){
+            OrdersDTO ordersDTO=new OrdersDTO();
+            ordersDTO.getDTO(orders);
+            ordersDTOS.add(ordersDTO);
+        }
+        return  ordersDTOS;
     }
 
-    public Orders findById(String id) {
 
-       return  repository.findById(id).orElse(null);
+    public OrdersDTO findById(String id) {
+        OrdersDTO ordersDTO=new OrdersDTO();
+        repository.findById(id).ifPresent(orders -> {ordersDTO.getDTO(orders);});
+        return  ordersDTO;
     }
     @Transactional
     public String create(Orders resource) {
@@ -63,5 +74,17 @@ public class OrdersService{
 
     public void deleteById(String id) {
         repository.deleteById(id);
+    }
+
+    public List<OrdersDTO> findAllByOrdersStatus(OrderStatus status) {
+        List<Orders> orders=repository.getOrdersByStatus(status.name());
+        List<OrdersDTO> ordersDTOS=new ArrayList<>();
+
+        for(Orders orderss:orders){
+            OrdersDTO ordersDTO=new OrdersDTO();
+            ordersDTO.getDTO(orderss);
+            ordersDTOS.add(ordersDTO);
+        }
+        return  ordersDTOS;
     }
 }

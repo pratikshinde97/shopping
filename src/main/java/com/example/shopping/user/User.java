@@ -58,5 +58,11 @@ public class User extends BaseEntity {
 	@Column(name="MOBILE NUMBER")
 	private  String mobileNumber;
 
+	@Column(name="STATE")
+	private  String state;
+
+
+
+
 
 }

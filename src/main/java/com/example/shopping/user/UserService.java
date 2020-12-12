@@ -27,6 +27,7 @@ public class UserService{
         user.setArea(userDTO.getArea());
         user.setCity(userDTO.getCity());
         user.setPassword(userDTO.getPassword());
+        user.setState(userDTO.getState());
         userRepository.save(user);
         return userDTO;
 
@@ -82,6 +83,8 @@ public class UserService{
         user.setCity(resource.getCity()==null||resource.getCity().isEmpty()?user.getCity():resource.getCity());
         user.setLandmark(resource.getLandmark()==null||resource.getLandmark().isEmpty()?user.getLandmark():resource.getLandmark());
         user.setPincode(resource.getPincode()==null||resource.getPincode().isEmpty()?user.getPincode():resource.getPincode());
+        user.setMobileNumber(resource.getMobileNumber()==null||resource.getMobileNumber().isEmpty()?user.getMobileNumber():resource.getMobileNumber());
+        user.setState(resource.getState()==null||resource.getState().isEmpty()?user.getState():resource.getState());
 
         userRepository.save(user);
     }

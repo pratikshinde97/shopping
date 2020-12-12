@@ -27,6 +27,7 @@ public class UserDTO {
     private  String mobileNumber;
     private  String landmark;
     private  String pincode;
+    private  String state;
 
 
     public void setFirstName(String firstName) {
@@ -73,6 +74,9 @@ public class UserDTO {
         user.setPincode(this.getPincode().trim());
         user.setCity(this.getCity().trim());
         user.setArea(this.getArea().trim());
+        user.setMobileNumber(this.getMobileNumber().trim());
+        user.setState(this.getState().trim());
+
 
         return user;
     }
@@ -89,8 +93,8 @@ this.setId(user.getId());
         this.setPincode(user.getPincode());
         this.setCity(user.getCity());
         this.setArea(user.getArea());
-
-
+        this.setMobileNumber(user.getMobileNumber());
+        this.setState(user.getState());
         return this;
     }
 

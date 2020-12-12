@@ -1,20 +1,14 @@
 package com.example.shopping.order;
 
 
-import com.example.shopping.common.IController;
 import com.example.shopping.util.PageUtil;
 import com.example.shopping.util.RestPreconditions;
 import com.google.common.base.Preconditions;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -29,17 +23,15 @@ public class OrdersController {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public List<Orders> findAll(@RequestParam("page") Optional<Integer> page,
+    public ResponseEntity<List<OrdersDTO>>  findAll(@RequestParam("page") Optional<Integer> page,
                              @RequestParam("size") Optional<Integer> size) {
-        Page<Orders> resultPage = service.findAll(PageUtil.defaultPage(page,size));
-        /*if (page.orElse(PageUtil.DEFAULT_CURRENT_PAGE_NO) > resultPage.getTotalPages()) {
-            throw new ResourceNotFoundException();
-        }*/
-        return resultPage.getContent();
+
+        return new ResponseEntity<List<OrdersDTO>>(service.findAll(PageUtil.defaultPage(page,size)), HttpStatus.OK);
+
     }
 
     @GetMapping(value = "/{id}")
-    public Orders findById( @PathVariable("id") String id) {
+    public OrdersDTO findById( @PathVariable("id") String id) {
         return RestPreconditions.checkFound(service.findById(id));
     }
 
@@ -75,5 +67,8 @@ public class OrdersController {
     }
 
 
-
+    @GetMapping(value = "/status/{status}")
+    public List<OrdersDTO> findAllByStatus( @PathVariable("status") OrderStatus status) {
+        return RestPreconditions.checkFound(service.findAllByOrdersStatus(status));
+    }
 }

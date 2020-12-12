@@ -49,7 +49,7 @@ public class DeliveryChargesController{
         return new ResponseEntity<DeliveryChargesDTO>(deli,HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "deliverChargesById/{id}")
+    @PutMapping(value = "deliveryChargesById/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> updateDelivery(@PathVariable( "id" ) String id,@RequestBody DeliveryChargesDTO resource) throws Exception {
         return new ResponseEntity<String>(service.updateDeliveryCharges(id,resource),HttpStatus.OK);
